@@ -1,0 +1,24 @@
+meta {
+  name: Delete Product
+  type: http
+  seq: 4
+}
+
+delete {
+  url: http://localhost:3000/products/69840708f89eda5c031c4567
+  body: none
+  auth: bearer
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTg0MDBmNGYzNjUwZTA4ZGUyNzY3M2EiLCJlbWFpbCI6Ikx1Y2FzZmlndWVAZ21haWwuY29tIiwiaWF0IjoxNzcwMjU5MjQ4LCJleHAiOjE3NzAyNjI4NDh9.3S004bGBCL4oc7rryJhkQnvRizAbghGCaxTTUPws2YI
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTg0MDBmNGYzNjUwZTA4ZGUyNzY3M2EiLCJlbWFpbCI6Ikx1Y2FzZmlndWVAZ21haWwuY29tIiwiaWF0IjoxNzcwMjU5MjQ4LCJleHAiOjE3NzAyNjI4NDh9.3S004bGBCL4oc7rryJhkQnvRizAbghGCaxTTUPws2YI
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

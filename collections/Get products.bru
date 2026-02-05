@@ -1,0 +1,24 @@
+meta {
+  name: Get products
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:3000/products
+  body: json
+  auth: bearer
+}
+
+headers {
+  Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTg0MDBmNGYzNjUwZTA4ZGUyNzY3M2EiLCJlbWFpbCI6Ikx1Y2FzZmlndWVAZ21haWwuY29tIiwiaWF0IjoxNzcwMjU5MjQ4LCJleHAiOjE3NzAyNjI4NDh9.3S004bGBCL4oc7rryJhkQnvRizAbghGCaxTTUPws2YI
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OTg0MDBmNGYzNjUwZTA4ZGUyNzY3M2EiLCJlbWFpbCI6Ikx1Y2FzZmlndWVAZ21haWwuY29tIiwiaWF0IjoxNzcwMjU5MjQ4LCJleHAiOjE3NzAyNjI4NDh9.3S004bGBCL4oc7rryJhkQnvRizAbghGCaxTTUPws2YI
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
