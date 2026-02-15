@@ -3,6 +3,7 @@ import bcryptjs from "bcryptjs"
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
 import { Request, Response } from "express"
+import { IPayload } from "../interfaces/IPayload"
 
 dotenv.config()
 
@@ -71,7 +72,7 @@ const login = async (req: Request, res: Response) => {
     if (!email || !password) {
       return res.status(400).json ({
       success: false,
-      error: "Debe ingresar email y contraseña"
+      error: "Debe ingresar email y password"
       })
     }
 
@@ -103,23 +104,18 @@ const login = async (req: Request, res: Response) => {
       })
     }
 
-    const payload = {
-      _id: foundUser._id,
-      email: foundUser.email,
-    }
+    const payload: IPayload = { _id: foundUser._id, email: foundUser.email }
 
-    const token = jwt.sign(payload, JWT_SECRET, {
-      expiresIn: JWT_EXPIRES
-    })
-
+    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" })
     res.json({
       success: true,
       data: token
     })
   } catch (error) {
+    const err = error as Error
     res.status(500).json({
       success: false,
-      error: error.message
+      error: err.message
     })
   }
 }

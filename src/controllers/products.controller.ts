@@ -1,22 +1,15 @@
-import { Product } from "../models/product.model"
 import { Request, Response } from "express"
-import { productValidate, productPartialValidate } from "../validators/productValidator"
+import { Product } from "../models/product.model"
+import mongoose from "mongoose"
+import { productPartialValidate, productValidate } from "../validators/productValidator"
 
 const getProducts = async (req: Request, res: Response) => {
   try {
-    const products = await Product.find({ user: req.user!._id }).sort({_id: -1})
-
-    res.json ({
-      success: true,
-      data: products 
-    })
+    const products = await Product.find().sort({ _id: -1 })
+    res.json({ success: true, data: products })
   } catch (error) {
     const err = error as Error
-    console.error(err)
-    res.status(500).json({
-      success: false, 
-      error: err.message 
-    })
+    res.status(500).json({ success: false, error: err.message })
   }
 }
 
@@ -24,23 +17,16 @@ const createProduct = async (req: Request, res: Response) => {
   try {
     const { name, price, stock, category, description } = req.body
 
-    if (!name) {
-      return res.status(400).json({ 
-        success: false, 
-        error: "Nombre obligatorio. Datos inválidos"
-      })
+
+    const validate = productValidate.safeParse(req.body)
+
+    if (!validate.success) {
+      return res.status(400).json({ success: false, error: validate.error.flatten().fieldErrors })
     }
 
-    const newProduct = await Product.create ({
-      name, 
-      price, 
-      stock, 
-      category, 
-      description,
-      user: req.user!._id
-    })
+    const createdProduct = await Product.create({ name, price, stock, category, description, user: req.user!._id })
 
-    res.status(201).json ({ success: true, data: newProduct })
+    res.status(201).json({ success: true, data: createdProduct })
   } catch (error) {
     const err = error as Error
     res.status(500).json({ success: false, error: err.message })
@@ -49,59 +35,72 @@ const createProduct = async (req: Request, res: Response) => {
 
 const updateProduct = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params
-    const updates =req.body
-    const userId = req.user!._id
+    const id = req.params.id
+    const updates = req.body
+    const  userId = req.user!._id
+
+    const validate = productPartialValidate.safeParse(updates)
+
+    if (!validate.success) {
+      return res.status(400).json({ 
+        success: false, 
+        error: validate.error.flatten().fieldErrors 
+      })
+    }
 
     const updatedProduct = await Product.findOneAndUpdate(
-      { _id: id, user: userId },
-      updates,
+      { _id: id, user: userId }, 
+      updates, 
       { new: true, runValidators: true }
     )
 
     if (!updatedProduct) {
-      return res.status(404).json({
-        success: false,
-        error: "Producto no encontrado o no tienes permiso para editarlo"
+      return res.status(404).json({ 
+        success: false, 
+        error: "Producto no encontrado o no tienes permiso para editarlo" 
       })
     }
-    res.json({ success: true, data: updatedProduct})
+
+    res.json({ success: true, data: updatedProduct })
   } catch (error) {
     const err = error as Error
-    return res.status(500).json({ success: false, error: err.message})
+    res.status(500).json({ success: false, error: err.message })
   }
 }
 
 const deleteProduct = async (req: Request, res: Response) => {
-
   try {
-    const { id } = req.params
-    const userId = req.user!._id
-    const deletedProduct = await Product.findOneAndDelete({
+  // incorporar una validación de input
+  const id = req.params.id as string
+  const userId = req.user!._id
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({
+      success: false,
+      error: "ID incorrecto, ingresa un valor válido"
+    })
+  }
+
+const deletedProduct = await Product.findOneAndDelete({
       _id: id,
-      user: userId 
+      user: userId // Solo elimina si pertenece al usuario
     })
 
     if (!deletedProduct) {
-      return res.status(404).json({
-        success: false,
-        error: "Producto no encontrado o no tienes permiso para eliminarlo"
+      return res.status(404).json({ 
+        success: false, 
+        error: "Producto no encontrado o no tienes permiso para eliminarlo" 
       })
     }
+
     res.json({ 
-      success:true, 
-      message: "Producto eliminado correctamente", 
-      data: deletedProduct
+      success: true, 
+      message: "Producto eliminado correctamente",
+      data: deletedProduct 
     })
   } catch (error) {
     const err = error as Error
-    if (err.kind === "ObjectId") {
-      return res
-      .status(400)
-      .json({ success: false, error: "ID incorrecto"})
-    }
-
-    res.status(500).json({ success: false, error: error.message})
+    res.status(500).json({ success: false, error: err.message })
   }
 }
 
