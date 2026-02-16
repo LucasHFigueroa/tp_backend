@@ -1,37 +1,24 @@
 import { User } from "../models/user.model"
 import bcryptjs from "bcryptjs"
 import jwt from "jsonwebtoken"
-import dotenv from "dotenv"
 import { Request, Response } from "express"
 import { IPayload } from "../interfaces/IPayload"
-
-dotenv.config()
+import { authValidate } from "../validators/authValidator"
 
 const JWT_SECRET = process.env.JWT_SECRET
-const JWT_EXPIRES = process.env.JWT_EXPIRES
 
 const register = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body
+    const validation = authValidate.safeParse(req.body)
 
-    if (!email || !password) {
+    if (!validation.success) {
       return res.status(400).json({
         success: false,
-        error: "Email o contraseña inválidos"
+        error: validation.error.flatten().fieldErrors
       })
     }
-    if (!email.includes("@") || !email.endsWith(".com")) {
-      return res.status(400).json({
-        success: false,
-        error: "El correo electrónico es inválido"
-      })
-    }
-    if (password.length < 4) {
-      return res.status(400).json({
-        success: false,
-        error: "La constraseña debe contar al menos con 4 caracteres "
-      })
-    }
+
+    const { email, password } = validation.data
 
     // Hashear la constraseña
     const hashPassword = await bcryptjs.hash(password, 10)
@@ -67,14 +54,16 @@ const register = async (req: Request, res: Response) => {
 
 const login = async (req: Request, res: Response) => {
   try {
-    const { email, password, } = req.body
+    const validation = authValidate.safeParse(req.body)
 
-    if (!email || !password) {
-      return res.status(400).json ({
-      success: false,
-      error: "Debe ingresar email y password"
-      })
+    if (!validation.success) {
+        return res.status(400).json({
+          success: false,
+          error: validation.error.flatten().fieldErrors
+        })
     }
+
+    const { email, password } = validation.data
 
     const foundUser = await User.findOne({ email })
 

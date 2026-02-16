@@ -7,7 +7,6 @@ dotenv.config()
 
 const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const header = req.headers.authorization
-
   const JWT_SECRET = process.env.JWT_SECRET
 
   if (!JWT_SECRET) {
@@ -30,19 +29,15 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
       error: "Formato inválido. Use Bearer TOKEN"
     })
   }
-  const token = header.split(" ")[1]
 
-  if (!token) {
-    return res.status(401).json({ success: false, error: "token inválido"})
-  }
+  const token = header.split(" ")[1]
 
   try {
     const payload = jwt.verify(token, JWT_SECRET) as IPayload
     req.user = payload
     next()
   } catch (error) {
-    const err = error as Error
-    res.status(500).json({ success: false, error: err.message })
+    return res.status(401).json({ success: false, error: "Token inválido o expirado" })
   }
 }
 

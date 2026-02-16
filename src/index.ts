@@ -26,9 +26,16 @@ serverHTTP.use(errorHandler)
 
 const PORT = process.env.PORT
 
-serverHTTP.listen(PORT, () => {
-  console.log(`✅ Servidor http en escucha en el puerto http://127.0.0.1:${PORT}`)
-  connectDb()
-})
+const startServer = async () => {
+  try {
+    await connectDb()
+    serverHTTP.listen(PORT, () => {
+      console.log(`✅ Servidor http en escucha en el puerto http://127.0.0.1:${PORT}`)
+    })
+  } catch (error) {
+    console.error("❌ Error al iniciar el servidor:", error)
+    process.exit(1)
+  }
+}
 
-
+startServer()
