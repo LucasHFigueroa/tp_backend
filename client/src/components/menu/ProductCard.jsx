@@ -16,39 +16,32 @@ const CATEGORY_EMOJI = {
 }
 
 function getCategoryEmoji(category = '') {
-  const key = category.toLowerCase()
-  return CATEGORY_EMOJI[key] || CATEGORY_EMOJI.default
+  return CATEGORY_EMOJI[category.toLowerCase()] || CATEGORY_EMOJI.default
 }
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, onExpand }) {
   const { addItem, items } = useCart()
-  const [added, setAdded] = useState(false)
+  const [added, setAdded]       = useState(false)
   const [imgError, setImgError] = useState(false)
 
-  const inCart = items.find(i => i._id === product._id)
-  const emoji = getCategoryEmoji(product.category)
-
-  const hasVideo = product.video && product.video.trim() !== ''
+  const inCart   = items.find(i => i._id === product._id)
+  const emoji    = getCategoryEmoji(product.category)
   const hasImage = product.image && product.image.trim() !== '' && !imgError
 
-  const handleAdd = () => {
+  const handleAdd = (e) => {
+    e.stopPropagation()
     addItem(product)
     setAdded(true)
     setTimeout(() => setAdded(false), 1200)
   }
 
   return (
-    <article className="product-card">
-
-      <div className="product-card__img">
-        {hasVideo ? (
-          <img
-            src={product.video}
-            alt={product.name}
-            className="product-card__media"
-            onError={() => setImgError(true)}
-          />
-        ) : hasImage ? (
+    <article
+      className="product-card"
+      onClick={() => onExpand && onExpand(product)}
+    >
+      <div className="product-card__media-wrap">
+        {hasImage ? (
           <img
             src={product.image}
             alt={product.name}
@@ -56,16 +49,16 @@ export default function ProductCard({ product }) {
             onError={() => setImgError(true)}
           />
         ) : (
-          <span className="product-card__emoji">{emoji}</span>
+          <div className="product-card__emoji-bg">
+            <span className="product-card__emoji">{emoji}</span>
+          </div>
         )}
-        <div className="product-card__img-overlay" />
         <span className="product-card__category">{product.category}</span>
       </div>
 
       <div className="product-card__body">
         <h3 className="product-card__name">{product.name}</h3>
         <p className="product-card__desc">{product.description}</p>
-
         <div className="product-card__footer">
           <span className="product-card__price">
             ${product.price.toLocaleString('es-AR')}
@@ -78,7 +71,6 @@ export default function ProductCard({ product }) {
           </button>
         </div>
       </div>
-
     </article>
   )
 }

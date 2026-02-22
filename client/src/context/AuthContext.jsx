@@ -4,7 +4,7 @@ const AuthContext = createContext(null)
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
-  const [token, setToken] = useState(() => localStorage.getItem('noctua_token'))
+  const [token, setToken] = useState(() => localStorage.getItem('noctis_token'))
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export function AuthProvider({ children }) {
         setUser({ email: payload.email, _id: payload._id })
       } catch {
         setToken(null)
-        localStorage.removeItem('noctua_token')
+        localStorage.removeItem('noctis_token')
       }
     } else {
       setUser(null)
@@ -31,7 +31,7 @@ export function AuthProvider({ children }) {
       })
       const data = await res.json()
       if (!data.success) throw new Error(data.error || 'Error al iniciar sesión')
-      localStorage.setItem('noctua_token', data.data)
+      localStorage.setItem('noctis_token', data.data)
       setToken(data.data)
       return { success: true }
     } catch (err) {
@@ -66,7 +66,7 @@ export function AuthProvider({ children }) {
   const logout = () => {
     setToken(null)
     setUser(null)
-    localStorage.removeItem('noctua_token')
+    localStorage.removeItem('noctis_token')
   }
 
   return (

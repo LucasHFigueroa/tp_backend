@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useProducts } from '../hooks/useProducts.js'
 import { useCart } from '../context/CartContext.jsx'
-import Header from '../components/layout/Header.jsx'
+import Header from '../components/menu/Header.jsx'
 import MenuFeed from '../components/menu/MenuFeed.jsx'
 import CartDrawer from '../components/cart/CartDrawer.jsx'
 import TinderMode from '../components/tinder/TinderMode.jsx'
@@ -68,12 +68,7 @@ export default function MenuPage({ onNavigateAdmin }) {
       </footer>
 
       <CartDrawer />
-      {tinderOpen && (
-        <TinderMode
-          products={products}
-          onClose={() => setTinderOpen(false)}
-        />
-      )}
+      {tinderOpen && ( <TinderMode onClose={() => setTinderOpen(false)} />)}
     </div>
   )
 }

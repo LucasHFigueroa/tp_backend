@@ -1,0 +1,114 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--dark);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.header--scrolled {
+  background: var(--dark);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.7);
+}
+
+/* Líneas decorativas */
+.header__topline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.header__bottomline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* Contenedor interno */
+.header__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 20px 18px;
+  gap: 8px;
+  transition: padding 0.35s ease;
+}
+
+.header--scrolled .header__inner {
+  padding: 12px 20px 10px;
+  gap: 0;
+}
+
+/* Logo */
+.header__logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.header__name {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: clamp(3rem, 13vw, 4.2rem);
+  letter-spacing: 0.6em;
+  color: var(--gold);
+  line-height: 1;
+  /* Compensar el tracking del último char */
+  margin-right: calc(-0.6em);
+  text-shadow:
+    0 0 60px rgba(201, 168, 76, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.8);
+  transition: font-size 0.35s ease, letter-spacing 0.35s ease;
+}
+
+.header--scrolled .header__name {
+  font-size: clamp(1.6rem, 7vw, 2.2rem);
+  letter-spacing: 0.45em;
+  margin-right: calc(-0.45em);
+}
+
+.header__sub {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.55em;
+  color: var(--gold-dark);
+  margin-right: calc(-0.55em);
+  text-transform: uppercase;
+  animation: fadeInUp 0.4s var(--ease-out) both;
+}
+
+/* Línea decorativa central */
+.header__deco {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 60%;
+  animation: fadeInUp 0.4s var(--ease-out) 0.05s both;
+}
+
+.header__deco-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+
+.header__deco-line:last-child {
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+.header__deco-diamond {
+  font-size: 0.35rem;
+  color: var(--gold);
+}
+
+/* Tagline */
+.header__tagline {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--muted);
+  letter-spacing: 0.18em;
+  animation: fadeInUp 0.4s var(--ease-out) 0.1s both;
+}

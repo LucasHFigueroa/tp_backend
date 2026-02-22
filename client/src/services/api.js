@@ -7,7 +7,6 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' }
 })
 
-// Helper para parsear errores de validación
 const parseError = (error) => {
   const data = error.response?.data
   if (!data) throw new Error(error.message)
@@ -17,11 +16,11 @@ const parseError = (error) => {
   throw new Error(data.error || 'Error desconocido')
 }
 
-// === PRODUCTS ===
 export const productsApi = {
-  getAll: async () => {
+  // params: { name, category, minPrice, maxPrice }
+  getAll: async (params = {}) => {
     try {
-      const { data } = await api.get('/products')
+      const { data } = await api.get('/products', { params })
       return data.data
     } catch (error) {
       parseError(error)
@@ -62,7 +61,6 @@ export const productsApi = {
   }
 }
 
-// === AUTH ===
 export const authApi = {
   login: async (email, password) => {
     try {

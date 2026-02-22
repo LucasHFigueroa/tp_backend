@@ -6,6 +6,7 @@
 
 .menu-page__main {
   flex: 1;
+  padding-bottom: 100px;
 }
 
 /* Loading */
@@ -43,30 +44,27 @@
   color: var(--muted);
   font-size: 0.95rem;
 }
+.menu-page__error span { font-size: 2rem; }
 
-.menu-page__error span {
-  font-size: 2rem;
-}
-
-/* Footer fijo */
+/* ── Footer fijo: left+right en lugar de left:50%+transform ── */
 .menu-page__footer {
   position: fixed;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
+  left: 0;
+  right: 0;
+  height: 80px;
   max-width: 480px;
+  margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px 14px;
-  background: rgba(17, 14, 11, 0.96);
-  backdrop-filter: blur(16px);
+  padding: 10px 20px 16px;
+  background: rgba(6, 8, 15, 0.96);
+  backdrop-filter: blur(20px);
   border-top: 1px solid var(--border);
   z-index: 200;
 }
 
-/* Botones del footer */
 .footer-btn {
   display: flex;
   flex-direction: column;
@@ -77,20 +75,9 @@
   cursor: pointer;
   transition: opacity 0.2s;
 }
+.footer-btn:hover { opacity: 0.75; }
 
-.footer-btn:hover {
-  opacity: 0.8;
-}
-
-.footer-btn--ghost {
-  color: var(--muted);
-}
-
-.footer-btn__icon {
-  font-size: 1.3rem;
-  line-height: 1;
-}
-
+.footer-btn__icon  { font-size: 1.3rem; line-height: 1; color: var(--muted) }
 .footer-btn__label {
   font-family: var(--font-mono);
   font-size: 0.55rem;
@@ -98,7 +85,6 @@
   color: var(--muted);
 }
 
-/* Botón carrito central */
 .footer-btn--cart {
   display: flex;
   flex-direction: row;
@@ -111,17 +97,11 @@
   letter-spacing: 0.12em;
   padding: 10px 28px;
   border-radius: var(--radius-pill);
-  box-shadow: 0 4px 20px rgba(201, 168, 76, 0.3);
+  box-shadow: 0 4px 20px rgba(201, 168, 76, 0.25);
   transition: background 0.2s, transform 0.1s;
 }
-
-.footer-btn--cart:hover {
-  background: var(--gold-light);
-}
-
-.footer-btn--cart:active {
-  transform: scale(0.97);
-}
+.footer-btn--cart:hover  { background: var(--gold-light); }
+.footer-btn--cart:active { transform: scale(0.97); }
 
 .footer-btn__badge {
   background: var(--black);

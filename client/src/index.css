@@ -1,29 +1,33 @@
 /* ============================================
-   NOCTUA — Design System
-   Dark & Moody / Art Deco Cocktail Bar
+   NOCTIS — Design System
+   Azul Noche / Carnaval Veneciano / Art Deco
    ============================================ */
 
 :root {
-  --black:       #0a0705;
-  --dark:        #110e0b;
-  --dark-mid:    #1a1511;
-  --surface:     #221c17;
-  --surface-alt: #2d2520;
-  --border:      #3d3028;
-  --border-lit:  #5a4535;
+  /* Azul noche con toque púrpura */
+  --black:       #06080f;
+  --dark:        #0a0d1a;
+  --dark-mid:    #0f1428;
+  --surface:     #151b35;
+  --surface-alt: #1c2340;
+  --border:      #252d4a;
+  --border-lit:  #3a4570;
 
+  /* Dorado */
   --gold:        #c9a84c;
   --gold-light:  #e8c97a;
   --gold-dark:   #8a6a28;
   --gold-glow:   rgba(201, 168, 76, 0.15);
 
-  --red:         #8b1a1a;
-  --red-vivid:   #c0392b;
-  --red-soft:    rgba(139, 26, 26, 0.3);
+  /* Borgoña veneciano */
+  --red:         #6b1a3a;
+  --red-vivid:   #9b2555;
+  --red-soft:    rgba(107, 26, 58, 0.3);
 
-  --cream:       #f5ede0;
-  --cream-dim:   #c4ae90;
-  --muted:       #7a6855;
+  /* Texto */
+  --cream:       #eee8f5;
+  --cream-dim:   #b8b0cc;
+  --muted:       #6a6888;
 
   --font-display: 'Bebas Neue', sans-serif;
   --font-serif:   'Cormorant Garamond', Georgia, serif;
@@ -35,16 +39,16 @@
   --space-lg:  24px;
   --space-xl:  40px;
 
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   16px;
   --radius-pill: 100px;
 
   --shadow-gold: 0 0 20px rgba(201, 168, 76, 0.2);
   --shadow-deep: 0 8px 32px rgba(0, 0, 0, 0.6);
   --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.5);
 
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
   --duration-fast: 150ms;
   --duration-base: 300ms;
   --duration-slow: 500ms;
@@ -57,7 +61,7 @@
 }
 
 html {
-  font-size: 16px;
+  font-size: 17px;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
 }
@@ -67,16 +71,17 @@ body {
   color: var(--cream);
   font-family: var(--font-serif);
   font-weight: 300;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.65;
   min-height: 100dvh;
   overflow-x: hidden;
 }
 
-img { max-width: 100%; display: block; }
+img    { max-width: 100%; display: block; }
 button { cursor: pointer; border: none; background: none; font-family: inherit; }
-a { color: inherit; text-decoration: none; }
+a      { color: inherit; text-decoration: none; }
 
-::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar       { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--dark); }
 ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 2px; }
 
@@ -89,25 +94,24 @@ a { color: inherit; text-decoration: none; }
   position: relative;
 }
 
-#root.admin-mode {
-  max-width: none;
-}
+#root.admin-mode { max-width: none; }
 
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
-
 @keyframes slideUp {
   from { transform: translateY(100%); }
   to   { transform: translateY(0); }
 }
-
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
+}
+@keyframes shimmer {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1; }
 }

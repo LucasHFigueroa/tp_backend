@@ -180,3 +180,33 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+/* Tags selector */
+.product-form__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.product-form__tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  padding: 7px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.product-form__tag:hover {
+  border-color: var(--border-lit);
+  color: var(--cream-dim);
+}
+
+.product-form__tag--active {
+  background: var(--border-lit);
+  border-color: var(--gold-dark);
+  color: var(--gold);
+}

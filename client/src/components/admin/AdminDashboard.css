@@ -303,3 +303,15 @@
 
 .admin-action--cancel  { color: var(--muted); }
 .admin-action--cancel:hover { color: var(--cream-dim); }
+/* Tags en tabla */
+.admin-table__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.admin-tag {
+  font-size: 0.9rem;
+  line-height: 1;
+  cursor: default;
+}

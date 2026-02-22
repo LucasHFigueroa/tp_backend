@@ -1,12 +1,12 @@
 .menu-feed {
-  padding: 8px 16px 120px; /* bottom padding para el footer fijo */
+  padding: 8px 16px 120px;
 }
 
 .menu-feed__section {
   animation: fadeInUp 0.5s var(--ease-out) both;
 }
 
-/* Separador de sección */
+/* Separador */
 .section-divider {
   display: flex;
   align-items: center;
@@ -33,11 +33,11 @@
   text-shadow: 0 0 20px var(--gold-glow);
 }
 
-/* Grid de cards — 1 columna en mobile */
+/* Grid — 1 columna */
 .menu-feed__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 14px;
+  gap: 16px;
 }
 
 /* Vacío */
@@ -63,7 +63,50 @@
   font-size: 1rem;
 }
 
-@keyframes shimmer {
-  0%, 100% { opacity: 0.4; }
-  50%       { opacity: 1; }
+/* ── Chips de navegación — sticky debajo del header ── */
+.menu-feed__chips-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(6, 8, 15, 0.97);
+  backdrop-filter: blur(16px);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  margin: 0 -16px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.menu-feed__chips-wrap::-webkit-scrollbar { display: none; }
+
+.menu-feed__chips {
+  display: flex;
+  gap: 8px;
+  width: max-content;
+  padding: 10px 0;
+}
+
+.menu-feed__chip {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--cream-dim);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: 7px 16px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.menu-feed__chip:hover {
+  background: var(--surface-alt);
+  border-color: var(--border-lit);
+  color: var(--gold);
+}
+
+.menu-feed__chip:active {
+  transform: scale(0.96);
 }

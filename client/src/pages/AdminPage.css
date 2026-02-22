@@ -28,7 +28,7 @@
 .admin-page__back:hover { color: var(--cream); }
 
 .admin-page__logo {
-  font-family: var(--font-display);
+  font-family: var(--font-SERIF);
   font-size: 1.6rem;
   letter-spacing: 0.2em;
   color: var(--gold);

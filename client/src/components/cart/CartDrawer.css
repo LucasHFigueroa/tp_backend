@@ -12,7 +12,6 @@
 .cart-drawer {
   position: fixed;
   bottom: 0;
-  left: 50%;
   transform: translateX(-50%);
   width: 100%;
   max-width: 480px;
@@ -56,7 +55,7 @@
 
 .cart-drawer__subtitle {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   color: var(--muted);
   letter-spacing: 0.1em;
   margin-top: 4px;
@@ -121,7 +120,7 @@
 
 .cart-item__unit-price {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   color: var(--muted);
   letter-spacing: 0.05em;
 }
@@ -200,7 +199,7 @@
 
 .cart-drawer__total-label {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 1rem;
   letter-spacing: 0.2em;
   color: var(--muted);
 }
@@ -270,7 +269,7 @@
 /* Vaciar */
 .cart-drawer__clear {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   color: var(--muted);
   letter-spacing: 0.1em;
   text-align: center;
@@ -304,13 +303,13 @@
 
 .cart-drawer__empty p {
   font-family: var(--font-serif);
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   color: var(--cream-dim);
 }
 
 .cart-drawer__empty-hint {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   color: var(--muted);
   letter-spacing: 0.08em;
 }
@@ -322,7 +321,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 14px;
+  gap: 16px;
   padding: 40px 24px;
   text-align: center;
   animation: fadeInUp 0.5s var(--ease-out) both;
@@ -352,8 +351,9 @@
 .cart-drawer__success-msg {
   font-family: var(--font-serif);
   font-style: italic;
-  color: var(--muted);
-  font-size: 0.95rem;
+  color: var(--cream-dim);
+  font-weight: 500;
+  font-size: 1.3rem;
   line-height: 1.6;
 }
 

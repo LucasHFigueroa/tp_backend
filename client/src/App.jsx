@@ -6,6 +6,7 @@ import AdminPage from './pages/AdminPage.jsx'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('menu')
+  const [menuKey, setMenuKey] = useState(0)
 
   const navigate = (page) => {
     setCurrentPage(page)
@@ -13,6 +14,8 @@ function App() {
     if (page === 'admin') {
       root.classList.add('admin-mode')
     } else {
+      // Al volver al menú incrementamos la key → fuerza remount → refetch
+      setMenuKey(prev => prev + 1)
       root.classList.remove('admin-mode')
     }
   }
@@ -21,7 +24,10 @@ function App() {
     <AuthProvider>
       <CartProvider>
         {currentPage === 'menu' && (
-          <MenuPage onNavigateAdmin={() => navigate('admin')} />
+          <MenuPage
+            key={menuKey}
+            onNavigateAdmin={() => navigate('admin')}
+          />
         )}
         {currentPage === 'admin' && (
           <AdminPage onNavigateMenu={() => navigate('menu')} />

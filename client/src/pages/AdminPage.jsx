@@ -14,7 +14,7 @@ export default function AdminPage({ onNavigateMenu }) {
           ← MENÚ
         </button>
 
-        <h1 className="admin-page__logo">NOCTUA ADMIN</h1>
+        <h1 className="admin-page__logo">NOCTIS ADMIN</h1>
 
         {user && (
           <div className="admin-page__user">
