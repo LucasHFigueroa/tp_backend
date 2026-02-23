@@ -10,7 +10,7 @@ const connectDb = async () => {
     console.log("✅ Conectado con éxito a MongoDB")
   } catch (error) {
     console.error("❌ No se pudo conectar con la base de datos", error)
-    process.exit(1) // Detiene la app si no hay base de datos
+    process.exit(1)
   }
 }
 

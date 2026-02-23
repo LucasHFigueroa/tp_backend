@@ -20,15 +20,12 @@ const register = async (req: Request, res: Response) => {
 
     const { email, password } = validation.data
 
-    // Hashear la constraseña
     const hashPassword = await bcryptjs.hash(password, 10)
 
     const newUser = await User.create({
       email,
       password: hashPassword
     })
-
-    // Respuesta (NO se devuelve el password)
 
     res.status(201).json({
       success: true,

@@ -4,7 +4,7 @@ import './AdminLogin.css'
 
 export default function AdminLogin() {
   const { login, register, loading } = useAuth()
-  const [mode, setMode]         = useState('login') // 'login' | 'register'
+  const [mode, setMode]         = useState('login')
   const [email, setEmail]       = useState('')
   const [password, setPassword] = useState('')
   const [error, setError]       = useState(null)

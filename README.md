@@ -1,111 +1,187 @@
-# Backend API - Gestión de Productos con Autenticación
+# NOCTIS — API REST Backend
 
-Este proyecto es un servidor backend desarrollado con **Node.js** y **Express** que implementa un sistema de gestión de productos. La aplicación sigue el patrón de diseño **MVC** (Modelo-Vista-Controlador), utiliza **MongoDB** para la persistencia de datos y asegura las rutas mediante **JSON Web Tokens (JWT)**.
-
----
-
-## 🚀 Características
-* **Autenticación segura:** Registro e inicio de sesión con hashing de contraseñas mediante `bcryptjs`.
-* **Rutas Protegidas:** Los productos están asociados a un usuario específico y solo pueden ser gestionados por su dueño mediante un token JWT.
-* **Validación de Datos:** Control de formatos de email y longitud de contraseñas.
+API REST para la gestión de productos de un bar, desarrollada con **TypeScript** y **Express**, siguiendo el patrón **MVC**. Incluye autenticación con JWT, validación con Zod y filtrado mediante query params.
 
 ---
 
-## 📋 Requisitos Previos
-* [Node.js](https://nodejs.org/) 
-* [MongoDB](https://www.mongodb.com/)
+## 📱 Diseño responsivo
+
+El proyecto está pensado con dos vistas diferenciadas según el dispositivo:
+
+- **Menú (cliente):** optimizado para **mobile** — los clientes acceden desde su celular para explorar la carta, usar el modo TinderMode y armar su pedido.
+- **Admin (gestión):** optimizado para **desktop** — el personal del bar gestiona productos, asigna mood tags y administra el catálogo desde una computadora.
 
 ---
 
-## ⚙️ Instalación y Ejecución
+## 🛠️ Stack tecnológico
 
-1.  **Clonar el repositorio:**
-    ```consola
-    git clone <url-del-repositorio>
-    cd tp-backend
-    npm install
-    ```
-
-2.  **Instalar dependencias:**
-    ```consola
-    npm install
-    ```
-
-3.  **Configurar variables de entorno:**
-    Crea un archivo `.env` en la raíz del proyecto basándote en el archivo `.env.example`:
-    ```env
-    PORT=3000
-    URI_DB=tu_string_de_mongo
-    JWT_SECRET=tu_secreto_para_jwt
-    JWT_EXPIRES=1h
-    ```
-
-4.  **Iniciar el servidor (Modo Desarrollo):**
-    ```consola
-    npm run dev
-    ```
+| Tecnología | Uso |
+|---|---|
+| TypeScript | Lenguaje principal |
+| Express | Framework HTTP |
+| MongoDB + Mongoose | Base de datos y ODM |
+| Zod | Validación de datos |
+| bcryptjs | Hash de contraseñas |
+| JWT | Autenticación |
+| dotenv | Variables de entorno |
+| cors | Solicitudes externas |
 
 ---
 
-## 🛣️ Endpoints y Ejemplos de Requests
+## 📁 Arquitectura del proyecto
 
-### 1. Autenticación (Públicos)
-
-* **POST** `/api/auth/register`
-    * **Descripción:** Crea un nuevo usuario.
-    * **Cuerpo (JSON):**
-    ```json
-    {
-      "email": "lucas@ejemplo.com",
-      "password": "password123"
-    }
-    ```
-
-* **POST** `/api/auth/login`
-    * **Descripción:** Valida credenciales y devuelve un token JWT.
-    * **Cuerpo (JSON):**
-    ```json
-    {
-      "email": "lucas@ejemplo.com",
-      "password": "password123"
-    }
-    ```
+```
+src/
+├── controllers/     # Lógica de negocio (MVC - Controlador)
+│   ├── products.controller.ts
+│   └── auth.controller.ts
+├── models/          # Esquemas Mongoose (MVC - Modelo)
+│   ├── product.model.ts
+│   └── user.model.ts
+├── routers/         # Definición de rutas
+│   ├── products.router.ts
+│   └── auth.router.ts
+├── middleware/      # Autenticación JWT
+│   └── auth.middleware.ts
+├── validators/      # Esquemas Zod
+│   ├── productValidator.ts
+│   └── authValidator.ts
+└── index.ts         # Entry point
+```
 
 ---
 
-### 2. Productos (Privados - Requieren Bearer Token)
+## ⚙️ Instalación y ejecución
 
-* **POST** `/products`
-    * **Descripción:** Crea un producto asociado al usuario logueado.
-    * **Cuerpo (JSON):**
-    ```json
-    {
-      "name": "Monitor Gamer 24\"",
-      "price": 45000,
-      "stock": 5,
-      "category": "Electrónica",
-      "description": "144Hz, 1ms de respuesta"
-    }
-    ```
+### 1. Clonar el repositorio
+```bash
+git clone <url-del-repositorio>
+cd TP-Backend
+```
 
-* **GET** `/products`
-    * **Descripción:** Obtiene todos los productos creados por el usuario autenticado.
+### 2. Instalar dependencias del backend
+```bash
+npm install
+```
 
-* **PATCH** `/products/:id`
-    * **Descripción:** Actualiza parcialmente un producto (ej. precio o stock).
-    * **Cuerpo (JSON):**
-    ```json
-    {
-      "price": 48000,
-      "stock": 3
-    }
-    ```
+### 3. Instalar dependencias del frontend (opcional)
+```bash
+cd client
+npm install
+```
 
-* **DELETE** `/products/:id`
-    * **Descripción:** Elimina un producto de la base de datos (solo si el usuario es el dueño).
+### 4. Configurar variables de entorno
+Crear un archivo `.env` en la raíz basándose en `.env.example`:
+```env
+PORT=3000
+URI_DB=tu_string_de_conexion_mongodb
+JWT_SECRET=tu_secreto_jwt
+JWT_EXPIRES=1h
+```
+
+### 5. Iniciar el servidor
+```bash
+# Desarrollo
+npm run dev
+
+# Producción
+npm run build
+npm start
+```
 
 ---
 
-## 🧪 Pruebas
+## 🛣️ Endpoints
 
-En la carpeta collections/ se incluyen los archivos .bru para realizar pruebas de los endpoints utilizando Bruno.
+### Autenticación — Públicos
+
+#### `POST /auth/register`
+Crea un nuevo usuario administrador.
+```json
+{
+  "email": "admin@noctis.com",
+  "password": "password123"
+}
+```
+
+#### `POST /auth/login`
+Devuelve un token JWT al validar credenciales.
+```json
+{
+  "email": "admin@noctis.com",
+  "password": "password123"
+}
+```
+**Respuesta:**
+```json
+{
+  "success": true,
+  "data": "<jwt_token>"
+}
+```
+
+---
+
+### Productos — Lectura pública / Escritura protegida
+
+#### `GET /products`
+Obtiene todos los productos. Soporta filtrado por **query params**:
+
+| Param | Tipo | Descripción | Ejemplo |
+|---|---|---|---|
+| `category` | string | Filtra por categoría (regex, case-insensitive) | `?category=Cocktails` |
+| `tags` | string | Filtra por mood tag del TinderMode | `?tags=party` |
+
+```bash
+# Todos los productos
+GET http://localhost:3000/products
+
+# Por categoría
+GET http://localhost:3000/products?category=Cervezas
+
+# Por mood tag
+GET http://localhost:3000/products?tags=party
+```
+
+#### `POST /products` 🔒
+Crea un producto. Requiere Bearer Token.
+```json
+{
+  "name": "Negroni Clásico",
+  "price": 3500,
+  "stock": 50,
+  "category": "Cocktails",
+  "description": "Gin, Campari y vermut rosso. Equilibrado y amargo.",
+  "image": "https://i.imgur.com/kVrlOS2.png",
+  "tags": ["party", "classy"]
+}
+```
+
+#### `PATCH /products/:id` 🔒
+Actualiza parcialmente un producto. Requiere Bearer Token y ser el dueño.
+```json
+{
+  "price": 3800,
+  "tags": ["classy", "romantico"]
+}
+```
+
+#### `DELETE /products/:id` 🔒
+Elimina un producto. Requiere Bearer Token y ser el dueño.
+
+---
+
+## 🧪 Colección Bruno
+
+En la carpeta `/collections` se encuentran los archivos `.bru` para probar todos los endpoints con [Bruno](https://www.usebruno.com/).
+
+Para usarlos: abrir Bruno → Open Collection → seleccionar la carpeta `/collections`.
+
+---
+
+## 🔐 Seguridad
+
+- Las contraseñas se hashean con **bcryptjs** antes de guardarse
+- Las rutas de escritura requieren un JWT válido en el header `Authorization: Bearer <token>`
+- Cada producto está asociado a un `user` — solo el dueño puede editarlo o eliminarlo
+- El token expira según `JWT_EXPIRES` (por defecto `1h`)

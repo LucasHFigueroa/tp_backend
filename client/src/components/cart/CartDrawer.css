@@ -1,4 +1,3 @@
-/* === OVERLAY === */
 .drawer-overlay {
   position: fixed;
   inset: 0;
@@ -8,7 +7,6 @@
   animation: fadeIn 0.2s ease both;
 }
 
-/* === DRAWER === */
 .cart-drawer {
   position: fixed;
   bottom: 0;
@@ -26,7 +24,6 @@
   animation: slideUp 0.35s var(--ease-out) both;
 }
 
-/* Handle decorativo */
 .cart-drawer__handle {
   width: 40px;
   height: 3px;
@@ -36,7 +33,6 @@
   flex-shrink: 0;
 }
 
-/* Header */
 .cart-drawer__header {
   display: flex;
   align-items: flex-start;
@@ -81,7 +77,6 @@
   flex-shrink: 0;
 }
 
-/* Lista */
 .cart-drawer__list {
   list-style: none;
   overflow-y: auto;
@@ -89,7 +84,6 @@
   padding: 8px 0;
 }
 
-/* Item */
 .cart-item {
   display: flex;
   align-items: center;
@@ -125,7 +119,6 @@
   letter-spacing: 0.05em;
 }
 
-/* Controles de cantidad */
 .cart-item__controls {
   display: flex;
   align-items: center;
@@ -162,7 +155,6 @@
   text-align: center;
 }
 
-/* Precio total + eliminar */
 .cart-item__right {
   display: flex;
   flex-direction: column;
@@ -188,7 +180,6 @@
 
 .cart-item__remove:hover { color: var(--red-vivid); }
 
-/* Total */
 .cart-drawer__total {
   display: flex;
   align-items: center;
@@ -210,7 +201,6 @@
   color: var(--gold);
 }
 
-/* CTA — Llamar al mozo */
 .cart-drawer__cta {
   margin: 0 20px;
   padding: 16px;
@@ -243,7 +233,6 @@
   cursor: not-allowed;
 }
 
-/* Dots de loading */
 .cart-drawer__cta-loading {
   display: flex;
   gap: 6px;
@@ -266,7 +255,6 @@
   40%           { transform: scale(1);   opacity: 1; }
 }
 
-/* Vaciar */
 .cart-drawer__clear {
   font-family: var(--font-mono);
   font-size: 0.7rem;
@@ -284,7 +272,6 @@
 
 .cart-drawer__clear:hover { color: var(--red-vivid); }
 
-/* === VACÍO === */
 .cart-drawer__empty {
   flex: 1;
   display: flex;
@@ -314,7 +301,6 @@
   letter-spacing: 0.08em;
 }
 
-/* === ÉXITO === */
 .cart-drawer__success {
   flex: 1;
   display: flex;

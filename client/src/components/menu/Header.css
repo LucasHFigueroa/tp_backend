@@ -12,7 +12,6 @@
   box-shadow: 0 4px 32px rgba(0, 0, 0, 0.7);
 }
 
-/* Líneas decorativas */
 .header__topline {
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
@@ -23,7 +22,6 @@
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
 }
 
-/* Contenedor interno */
 .header__inner {
   display: flex;
   flex-direction: column;
@@ -38,7 +36,6 @@
   gap: 0;
 }
 
-/* Logo */
 .header__logo {
   display: flex;
   flex-direction: column;
@@ -74,7 +71,6 @@
   animation: fadeInUp 0.4s var(--ease-out) both;
 }
 
-/* Línea decorativa central */
 .header__deco {
   display: flex;
   align-items: center;
@@ -98,7 +94,6 @@
   color: var(--gold);
 }
 
-/* Tagline */
 .header__tagline {
   font-family: var(--font-serif);
   font-style: italic;

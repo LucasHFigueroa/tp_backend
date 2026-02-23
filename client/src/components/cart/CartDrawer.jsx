@@ -34,16 +34,12 @@ export default function CartDrawer() {
 
   return (
     <>
-      {/* Overlay */}
       <div className="drawer-overlay" onClick={handleClose} />
 
-      {/* Drawer */}
       <div className="cart-drawer">
 
-        {/* Handle */}
         <div className="cart-drawer__handle" />
 
-        {/* Header */}
         <div className="cart-drawer__header">
           <div>
             <h2 className="cart-drawer__title">MI PEDIDO</h2>

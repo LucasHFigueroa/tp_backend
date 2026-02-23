@@ -17,17 +17,14 @@ export default function Header() {
       <div className="header__inner">
         <div className="header__logo">
 
-          {/* Nombre principal */}
           <span className="header__name">NOCTIS</span>
 
-          {/* Subtexto — se oculta al scrollear */}
           {!scrolled && (
             <span className="header__sub">BAR & COCKTAILS</span>
           )}
 
         </div>
 
-        {/* Tagline — solo visible en la versión grande */}
         {!scrolled && (
           <>
             <div className="header__deco">

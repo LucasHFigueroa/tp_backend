@@ -70,8 +70,6 @@ export default function TinderMode({ onClose }) {
     setLoading(true)
     setError(null)
     try {
-      // Si es 'todo' o no hay tag seleccionado → traer todo sin filtro
-      // Si hay tag → GET /products?tags=party (un solo fetch)
       const params = selectedTag && selectedTag !== 'todo'
         ? { tags: selectedTag }
         : {}

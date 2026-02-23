@@ -1,16 +1,18 @@
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
 import AdminLogin from '../components/admin/AdminLogin.jsx'
 import AdminDashboard from '../components/admin/AdminDashboard.jsx'
 import './AdminPage.css'
 
-export default function AdminPage({ onNavigateMenu }) {
+export default function AdminPage() {
+  const navigate  = useNavigate()
   const { user, logout } = useAuth()
 
   return (
     <div className="admin-page">
 
       <header className="admin-page__header">
-        <button className="admin-page__back" onClick={onNavigateMenu}>
+        <button className="admin-page__back" onClick={() => navigate('/')}>
           ← MENÚ
         </button>
 

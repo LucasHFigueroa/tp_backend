@@ -13,11 +13,9 @@ const serverHTTP = express()
 serverHTTP.use(cors())
 serverHTTP.use(express.json())
 
-// Rutas
 serverHTTP.use("/products", productRouter)
 serverHTTP.use("/auth", authRouter)
 
-//404 Handler
 serverHTTP.use((req, res) => {
   res.status(404).json({ success: false, error: "El recurso no se encuentra"})
 })

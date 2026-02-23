@@ -27,13 +27,11 @@ export function AuthProvider({ children }) {
     const payload = getPayload(token)
     if (!payload) { logout(); return }
 
-    // Verificar expiración al montar
     const now = Math.floor(Date.now() / 1000)
     if (payload.exp && payload.exp < now) { logout(); return }
 
     setUser({ email: payload.email, _id: payload._id })
 
-    // Programar logout automático cuando expire el token
     if (payload.exp) {
       const msUntilExpiry = (payload.exp - now) * 1000
       const timer = setTimeout(() => { logout() }, msUntilExpiry)
