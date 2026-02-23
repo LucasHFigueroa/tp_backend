@@ -1,12 +1,11 @@
 .menu-feed {
-  padding: 8px 16px 120px;
+  padding: 0 16px;
 }
 
 .menu-feed__section {
   animation: fadeInUp 0.5s var(--ease-out) both;
 }
 
-/* Separador */
 .section-divider {
   display: flex;
   align-items: center;
@@ -19,7 +18,6 @@
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--border-lit));
 }
-
 .section-divider__line--right {
   background: linear-gradient(90deg, var(--border-lit), transparent);
 }
@@ -33,14 +31,12 @@
   text-shadow: 0 0 20px var(--gold-glow);
 }
 
-/* Grid — 1 columna */
 .menu-feed__grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
 }
 
-/* Vacío */
 .menu-feed__empty {
   display: flex;
   flex-direction: column;
@@ -50,34 +46,32 @@
   padding: 80px 20px;
   color: var(--muted);
 }
-
 .menu-feed__empty span {
   font-size: 2rem;
   color: var(--gold-dark);
   animation: shimmer 2s ease-in-out infinite;
 }
-
 .menu-feed__empty p {
   font-family: var(--font-serif);
   font-style: italic;
   font-size: 1rem;
 }
 
-/* ── Chips de navegación — sticky debajo del header ── */
 .menu-feed__chips-wrap {
   position: sticky;
-  top: 0;
   z-index: 50;
   background: rgba(6, 8, 15, 0.97);
   backdrop-filter: blur(16px);
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  margin: 0 -16px;
-  padding: 0 16px;
+  margin-left: -16px;
+  margin-right: -16px;
+  padding-left: 16px;
+  padding-right: 16px;
   border-bottom: 1px solid var(--border);
+  max-width: 100vw;
 }
-
 .menu-feed__chips-wrap::-webkit-scrollbar { display: none; }
 
 .menu-feed__chips {
@@ -89,7 +83,7 @@
 
 .menu-feed__chip {
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   letter-spacing: 0.08em;
   color: var(--cream-dim);
   background: var(--surface);
@@ -100,13 +94,5 @@
   cursor: pointer;
   transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
-
-.menu-feed__chip:hover {
-  background: var(--surface-alt);
-  border-color: var(--border-lit);
-  color: var(--gold);
-}
-
-.menu-feed__chip:active {
-  transform: scale(0.96);
-}
+.menu-feed__chip:hover  { background: var(--surface-alt); border-color: var(--border-lit); color: var(--gold); }
+.menu-feed__chip:active { transform: scale(0.96); }

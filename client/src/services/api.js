@@ -1,82 +1,57 @@
-import axios from 'axios'
+const BASE_URL = import.meta.env.VITE_API_URL
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
-
-const api = axios.create({
-  baseURL: BASE_URL,
-  headers: { 'Content-Type': 'application/json' }
-})
-
-const parseError = (error) => {
-  const data = error.response?.data
-  if (!data) throw new Error(error.message)
-  if (typeof data.error === 'object') {
-    throw new Error(Object.values(data.error).flat().join('. '))
+async function request(endpoint, options = {}) {
+  const res = await fetch(`${BASE_URL}${endpoint}`, {
+    headers: { 'Content-Type': 'application/json', ...options.headers },
+    ...options
+  })
+  const data = await res.json()
+  if (!data.success) {
+    const msg = typeof data.error === 'object'
+      ? Object.values(data.error).flat().join('. ')
+      : data.error || 'Error desconocido'
+    throw new Error(msg)
   }
-  throw new Error(data.error || 'Error desconocido')
+  return data.data
 }
 
 export const productsApi = {
-  // params: { name, category, minPrice, maxPrice }
-  getAll: async (params = {}) => {
-    try {
-      const { data } = await api.get('/products', { params })
-      return data.data
-    } catch (error) {
-      parseError(error)
-    }
+  getAll: (params = {}) => {
+    const query = new URLSearchParams(params).toString()
+    return request(`/products${query ? `?${query}` : ''}`)
   },
 
-  create: async (product, token) => {
-    try {
-      const { data } = await api.post('/products', product, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
-      return data.data
-    } catch (error) {
-      parseError(error)
-    }
-  },
+  create: (product, token) =>
+    request('/products', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` },
+      body: JSON.stringify(product)
+    }),
 
-  update: async (id, updates, token) => {
-    try {
-      const { data } = await api.patch(`/products/${id}`, updates, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
-      return data.data
-    } catch (error) {
-      parseError(error)
-    }
-  },
+  update: (id, updates, token) =>
+    request(`/products/${id}`, {
+      method: 'PATCH',
+      headers: { Authorization: `Bearer ${token}` },
+      body: JSON.stringify(updates)
+    }),
 
-  delete: async (id, token) => {
-    try {
-      const { data } = await api.delete(`/products/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
-      return data.data
-    } catch (error) {
-      parseError(error)
-    }
-  }
+  delete: (id, token) =>
+    request(`/products/${id}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` }
+    })
 }
 
 export const authApi = {
-  login: async (email, password) => {
-    try {
-      const { data } = await api.post('/auth/login', { email, password })
-      return data.data
-    } catch (error) {
-      parseError(error)
-    }
-  },
+  login: (email, password) =>
+    request('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password })
+    }),
 
-  register: async (email, password) => {
-    try {
-      const { data } = await api.post('/auth/register', { email, password })
-      return data.data
-    } catch (error) {
-      parseError(error)
-    }
-  }
+  register: (email, password) =>
+    request('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify({ email, password })
+    })
 }

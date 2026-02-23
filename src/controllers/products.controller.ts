@@ -13,7 +13,6 @@ const getProducts = async (req: Request, res: Response) => {
       filter.category = { $regex: category as string, $options: "i" }
     }
 
-    // Filtrar por tag: ?tags=party
     if (tags) {
       filter.tags = { $in: [tags as string] }
     }

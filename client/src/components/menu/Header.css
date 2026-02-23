@@ -44,27 +44,23 @@
   flex-direction: column;
   align-items: center;
   gap: 4px;
+  justify-content: center;
 }
 
 .header__name {
   font-family: var(--font-serif);
   font-weight: 700;
-  font-size: clamp(3rem, 13vw, 4.2rem);
-  letter-spacing: 0.6em;
+  font-size: 3rem;
   color: var(--gold);
+  letter-spacing: 20px;
+  padding-left: 20px;
   line-height: 1;
-  /* Compensar el tracking del último char */
-  margin-right: calc(-0.6em);
-  text-shadow:
-    0 0 60px rgba(201, 168, 76, 0.2),
-    0 2px 4px rgba(0, 0, 0, 0.8);
   transition: font-size 0.35s ease, letter-spacing 0.35s ease;
 }
 
 .header--scrolled .header__name {
   font-size: clamp(1.6rem, 7vw, 2.2rem);
   letter-spacing: 0.45em;
-  margin-right: calc(-0.45em);
 }
 
 .header__sub {

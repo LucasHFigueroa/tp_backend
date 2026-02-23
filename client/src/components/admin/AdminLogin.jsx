@@ -3,16 +3,33 @@ import { useAuth } from '../../context/AuthContext.jsx'
 import './AdminLogin.css'
 
 export default function AdminLogin() {
-  const { login, loading } = useAuth()
-  const [email, setEmail] = useState('')
+  const { login, register, loading } = useAuth()
+  const [mode, setMode]         = useState('login') // 'login' | 'register'
+  const [email, setEmail]       = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState(null)
+  const [error, setError]       = useState(null)
+  const [success, setSuccess]   = useState(null)
+
+  const isLogin = mode === 'login'
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError(null)
-    const result = await login(email, password)
-    if (!result.success) setError(result.error)
+    setSuccess(null)
+
+    if (isLogin) {
+      const result = await login(email, password)
+      if (!result.success) setError(result.error)
+    } else {
+      const result = await register(email, password)
+      if (!result.success) {
+        setError(result.error)
+      } else {
+        setSuccess('Usuario registrado. Ahora podés iniciar sesión.')
+        setMode('login')
+        setPassword('')
+      }
+    }
   }
 
   return (
@@ -20,8 +37,12 @@ export default function AdminLogin() {
       <div className="admin-login__card">
 
         <div className="admin-login__header">
-          <h2 className="admin-login__title">ACCESO ADMIN</h2>
-          <p className="admin-login__subtitle">Solo personal autorizado</p>
+          <h2 className="admin-login__title">
+            {isLogin ? 'ACCESO ADMIN' : 'REGISTRO'}
+          </h2>
+          <p className="admin-login__subtitle">
+            {isLogin ? 'Solo personal autorizado' : 'Crear cuenta de administrador'}
+          </p>
         </div>
 
         <div className="admin-login__topline" />
@@ -34,7 +55,7 @@ export default function AdminLogin() {
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              placeholder="admin@noctua.com"
+              placeholder="admin@noctis.com"
               required
             />
           </div>
@@ -52,17 +73,26 @@ export default function AdminLogin() {
           </div>
 
           {error && (
-            <div className="admin-login__error">
-              ⚠️ {error}
-            </div>
+            <div className="admin-login__error">⚠️ {error}</div>
           )}
 
+          {success && (
+            <div className="admin-login__success">✓ {success}</div>
+          )}
+
+          <button className="admin-login__btn" type="submit" disabled={loading}>
+            {loading
+              ? (isLogin ? 'INGRESANDO...' : 'REGISTRANDO...')
+              : (isLogin ? 'INGRESAR' : 'REGISTRARSE')
+            }
+          </button>
+
           <button
-            className="admin-login__btn"
-            type="submit"
-            disabled={loading}
+            type="button"
+            className="admin-login__toggle"
+            onClick={() => { setMode(isLogin ? 'register' : 'login'); setError(null); setSuccess(null) }}
           >
-            {loading ? 'INGRESANDO...' : 'INGRESAR'}
+            {isLogin ? '¿No tenés cuenta? Registrate' : '¿Ya tenés cuenta? Iniciá sesión'}
           </button>
         </form>
 

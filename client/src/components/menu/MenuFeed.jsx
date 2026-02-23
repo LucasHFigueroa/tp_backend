@@ -1,4 +1,3 @@
-import { useRef, useEffect, useState } from 'react'
 import ProductCard from './ProductCard.jsx'
 import './MenuFeed.css'
 
@@ -37,26 +36,14 @@ function SectionDivider({ title }) {
 }
 
 export default function MenuFeed({ products }) {
-  const [headerHeight, setHeaderHeight] = useState(0)
-
-  // Medir el header sticky para que los chips queden justo debajo
-  useEffect(() => {
-    const header = document.querySelector('.header')
-    if (!header) return
-    const update = () => setHeaderHeight(header.offsetHeight)
-    update()
-    const observer = new ResizeObserver(update)
-    observer.observe(header)
-    return () => observer.disconnect()
-  }, [])
 
   const scrollToSection = (id) => {
     const el = document.getElementById(id)
     if (!el) return
-    // Offset = header + chips bar (~50px)
+    const headerH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height')) || 0
     const chipsBar = document.querySelector('.menu-feed__chips-wrap')
-    const chipsHeight = chipsBar ? chipsBar.offsetHeight : 48
-    const top = el.getBoundingClientRect().top + window.scrollY - headerHeight - chipsHeight
+    const chipsH   = chipsBar ? chipsBar.offsetHeight : 48
+    const top = el.getBoundingClientRect().top + window.scrollY - headerH - chipsH - 8
     window.scrollTo({ top, behavior: 'smooth' })
   }
 
@@ -78,11 +65,10 @@ export default function MenuFeed({ products }) {
   return (
     <div className="menu-feed">
 
-      {/* Chips sticky — se posicionan justo debajo del header */}
       {chips.length > 1 && (
         <div
           className="menu-feed__chips-wrap"
-          style={{ top: headerHeight }}
+          style={{ top: 'var(--header-height, 0px)' }}
         >
           <div className="menu-feed__chips">
             {chips.map(chip => (
@@ -98,7 +84,6 @@ export default function MenuFeed({ products }) {
         </div>
       )}
 
-      {/* Secciones */}
       {Object.entries(grouped).map(([category, items], groupIndex) => {
         const sectionId = category.toLowerCase().replace(' ', '-')
         return (
@@ -111,10 +96,7 @@ export default function MenuFeed({ products }) {
             <SectionDivider title={category.toUpperCase()} />
             <div className="menu-feed__grid">
               {items.map((product, i) => (
-                <div
-                  key={product._id}
-                  style={{ animationDelay: `${groupIndex * 0.1 + i * 0.07}s` }}
-                >
+                <div key={product._id} style={{ animationDelay: `${groupIndex * 0.1 + i * 0.07}s` }}>
                   <ProductCard product={product} />
                 </div>
               ))}
