@@ -59,6 +59,7 @@
 
 .menu-feed__chips-wrap {
   position: sticky;
+  top: var(--header-height, 0px);
   z-index: 50;
   background: rgba(6, 8, 15, 0.97);
   backdrop-filter: blur(16px);

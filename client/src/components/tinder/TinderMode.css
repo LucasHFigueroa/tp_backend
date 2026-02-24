@@ -8,8 +8,6 @@
   flex-direction: column;
   overflow: hidden;
   animation: fadeIn 0.25s ease both;
-  max-width: 480px;
-  margin: 0 auto;
 }
 
 .tinder-mode__header {
@@ -121,7 +119,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 20px;
+  padding: 16px 24px 120px;
   position: relative;
   overflow: hidden;
 }
@@ -137,7 +135,7 @@
   box-shadow: var(--shadow-deep);
   display: flex;
   flex-direction: column;
-  max-height: calc(100dvh - 30%);
+  max-height: calc(100dvh - 180px);
 }
 
 .tinder-card--back {
@@ -184,7 +182,7 @@
 
 .tinder-card__img {
   width: 100%;
-  height: auto;
+  max-height: 45dvh;
   object-fit: cover;
   display: block;
   transition: transform 0.4s ease;
@@ -227,7 +225,8 @@
 
 .tinder-card__content {
   background: var(--surface);
-  height: 400px;
+  flex: 1;
+  min-height: 0;
   padding: 10px 16px 14px;
   display: flex;
   flex-direction: column;

@@ -58,7 +58,7 @@ export default function MenuFeed({ products }) {
 
   const grouped = groupByCategory(products)
   const availableIds = new Set(
-    Object.keys(grouped).map(c => c.toLowerCase().replace(' ', '-'))
+    Object.keys(grouped).map(c => c.toLowerCase().replace(/\s+/g, '-'))
   )
   const chips = CATEGORY_CHIPS.filter(c => availableIds.has(c.id))
 
@@ -85,7 +85,7 @@ export default function MenuFeed({ products }) {
       )}
 
       {Object.entries(grouped).map(([category, items], groupIndex) => {
-        const sectionId = category.toLowerCase().replace(' ', '-')
+        const sectionId = category.toLowerCase().replace(/\s+/g, '-')
         return (
           <section
             key={category}

@@ -147,13 +147,13 @@ GET http://localhost:3000/products?tags=party
 Crea un producto. Requiere Bearer Token.
 ```json
 {
-  "name": "Negroni Clásico",
-  "price": 3500,
-  "stock": 50,
+  "name": "Margarita Clásica",
+  "price": 7800,
+  "stock": 30,
   "category": "Cocktails",
-  "description": "Gin, Campari y vermut rosso. Equilibrado y amargo.",
-  "image": "https://i.imgur.com/kVrlOS2.png",
-  "tags": ["party", "classy"]
+  "description": "Un equilibrio perfecto entre fuerza y frescura. Tequila reposado, jugo de lima y triple sec. Servido en copa coupe con borde de sal fina y una rodaja de lima fresca.",
+  "image": "https://i.imgur.com/23aWjoi.png",
+  "tags": ["refrescante", "classy", "picante"]
 }
 ```
 
@@ -185,3 +185,25 @@ Para usarlos: abrir Bruno → Open Collection → seleccionar la carpeta `/colle
 - Las rutas de escritura requieren un JWT válido en el header `Authorization: Bearer <token>`
 - Cada producto está asociado a un `user` — solo el dueño puede editarlo o eliminarlo
 - El token expira según `JWT_EXPIRES` (por defecto `1h`)
+
+---
+
+## 🤖 Herramientas de IA utilizadas
+
+Este proyecto fue desarrollado con asistencia de inteligencia artificial en dos frentes:
+
+### 💬 Claude (Anthropic) — Generación de código
+Se utilizó **Claude** como asistente de desarrollo para la generación y revisión de código tanto del frontend (React + CSS) como del backend (TypeScript + Express). Esto incluyó componentes, lógica de negocio, estilos, validaciones y estructura general del proyecto.
+
+---
+
+### 🎨 Gemini (Google) — Generación de imágenes
+Se utilizó **Gemini** para generar las imágenes de los productos de la carta. Cada imagen fue creada a partir de un prompt descriptivo con estilo fotográfico profesional de bar nocturno.
+
+#### Ejemplo de prompt utilizado
+
+```
+🍸 MARGARITA CLÁSICA
+Ultra-realistic photographic image of a professionally crafted cocktail in a high-end cocktail bar at night. Dark, moody nightlife atmosphere, black stone bar counter, low warm lighting with subtle neon reflections, cinematic contrast, soft shadows, shallow depth of field. The cocktail is perfectly served in a chilled glass with natural condensation, realistic liquid texture and reflections. Fresh ingredients placed naturally on the bar surface. Professional food and beverage photography, macro details, studio-quality lighting, ultra-high realism, no text, no logos, no people, no hands, no bartender, centered composition, square format, premium cocktail menu style.
+The cocktail is a classic Margarita: crystal-clear to pale lime-colored cocktail made with tequila, fresh lime juice and triple sec, served in a chilled coupe glass with a lightly salted rim and garnished with a fresh lime wheel.
+```

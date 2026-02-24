@@ -306,3 +306,59 @@
   line-height: 1;
   cursor: default;
 }
+
+@media (min-width: 768px) {
+  .admin-dashboard {
+    padding: 40px 48px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .admin-toolbar {
+    flex-wrap: nowrap;
+  }
+
+  .admin-stats {
+    gap: 20px;
+  }
+
+  .admin-stat {
+    padding: 18px 28px;
+  }
+
+  .admin-stat__num {
+    font-size: 2.2rem;
+  }
+
+  .admin-table {
+    font-size: 0.85rem;
+  }
+
+  .admin-table th {
+    padding: 14px 20px;
+    font-size: 0.65rem;
+  }
+
+  .admin-table td {
+    padding: 16px 20px;
+  }
+
+  .admin-table__name {
+    font-size: 0.9rem;
+  }
+
+  .admin-table__desc {
+    max-width: 320px;
+    font-size: 0.72rem;
+  }
+
+  .admin-table__thumb {
+    width: 48px;
+    height: 48px;
+  }
+
+  .admin-toast {
+    font-size: 0.85rem;
+    padding: 14px 24px;
+  }
+}

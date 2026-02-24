@@ -94,7 +94,11 @@ a      { color: inherit; text-decoration: none; }
   position: relative;
 }
 
-#root.admin-mode { max-width: none; }
+#root.admin-mode,
+#root:has(.admin-page),
+#root:has(.admin-dashboard) {
+  max-width: none;
+}
 
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }

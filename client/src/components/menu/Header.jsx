@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './Header.css'
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
+  const headerRef = useRef(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
@@ -10,8 +11,20 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    if (!headerRef.current) return
+    const updateHeight = () => {
+      const h = headerRef.current?.offsetHeight ?? 0
+      document.documentElement.style.setProperty('--header-height', `${h}px`)
+    }
+    updateHeight()
+    const ro = new ResizeObserver(updateHeight)
+    ro.observe(headerRef.current)
+    return () => ro.disconnect()
+  }, [])
+
   return (
-    <header className={`header ${scrolled ? 'header--scrolled' : ''}`}>
+    <header ref={headerRef} className={`header ${scrolled ? 'header--scrolled' : ''}`}>
       <div className="header__topline" />
 
       <div className="header__inner">
